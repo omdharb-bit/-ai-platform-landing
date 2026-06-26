@@ -104,9 +104,9 @@ function selectCurrency(code) {
   ddBtn.focus();
 }
 
-ddBtn.addEventListener("click", () => openMenu(!dd.classList.contains("is-open")));
+ddBtn.addEventListener("click", (e) => { e.stopPropagation(); openMenu(!dd.classList.contains("is-open")); });
 ddOpts.forEach((opt) => {
-  opt.addEventListener("click", () => selectCurrency(opt.dataset.value));
+  opt.addEventListener("click", (e) => { e.stopPropagation(); selectCurrency(opt.dataset.value); });
 });
 
 /* keyboard: arrows to move, Enter to pick, Esc to close */

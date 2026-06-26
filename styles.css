@@ -5,19 +5,8 @@
    from asset_package.zip in ONE place and the whole page re-themes.
    ========================================================================== */
 
-/* ---- FONTS: self-host the two required families (no external/CDN request) ----
-   Drop the .woff2 files from the asset package into /assets/fonts and update the
-   src paths + family names. The token names (--font-display / --font-body) stay. */
-@font-face {
-  font-family: "DisplayFont";        /* TODO: rename to the provided display family */
-  src: url("assets/fonts/display.woff2") format("woff2");
-  font-weight: 400 700; font-display: swap;
-}
-@font-face {
-  font-family: "BodyFont";           /* TODO: rename to the provided body family */
-  src: url("assets/fonts/body.woff2") format("woff2");
-  font-weight: 400 600; font-display: swap;
-}
+/* Fonts are loaded via Google Fonts in index.html <head>:
+   JetBrains Mono (display / headers) + Inter (body / UI). */
 
 :root {
   /* ---- COLOR PALETTE (placeholder — replace with package hex codes) ---- */
@@ -32,8 +21,8 @@
   --success:   #34d399;
 
   /* ---- TYPE ---- */
-  --font-display: "DisplayFont", "Space Grotesk", system-ui, sans-serif;
-  --font-body:    "BodyFont", "Inter", system-ui, sans-serif;
+  --font-display: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+  --font-body:    "Inter", system-ui, -apple-system, sans-serif;
   --fs-h1: clamp(2.4rem, 6vw, 4.1rem);
   --fs-h2: clamp(1.75rem, 3.6vw, 2.6rem);
   --fs-h3: clamp(1.15rem, 1.6vw, 1.35rem);
@@ -243,7 +232,7 @@ body.ready [data-enter="3"] { animation-delay: 160ms; }   /* finishes at 460ms *
 .dropdown.is-open .dropdown__btn svg { transform: rotate(180deg); }
 .dropdown__cur { color: var(--brand-2); font-weight: 700; }
 .dropdown__menu {
-  position: absolute; top: calc(100% + 8px); right: 0; min-width: 230px; z-index: 30;
+  position: absolute; top: calc(100% + 8px); right: 0; min-width: 230px; z-index: 100;
   background: var(--surface-2); border: 1px solid var(--border); border-radius: 14px; padding: 6px;
   box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.6);
   opacity: 0; visibility: hidden; transform: translateY(-8px);
@@ -263,7 +252,7 @@ body.ready [data-enter="3"] { animation-delay: 160ms; }   /* finishes at 460ms *
 .tier__name { font-size: 1.25rem; }
 .tier__desc { color: var(--muted); font-size: 0.92rem; margin: 6px 0 18px; min-height: 2.6em; }
 .tier__price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 20px; }
-.tier__amount { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 2.9rem); font-weight: 700; letter-spacing: -0.03em; }
+.tier__amount { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 2.9rem); font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
 .tier__period { color: var(--muted); font-size: 0.95rem; }
 .tier__features { display: grid; gap: 10px; margin-bottom: 24px; }
 .tier__features li { position: relative; padding-left: 26px; color: var(--text); font-size: 0.92rem; }
