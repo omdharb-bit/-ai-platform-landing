@@ -16,30 +16,42 @@
 /*  final monthly price = baseUSD × currency.rate × currency.tariff           */
 /*  annual cycle then applies a flat 20% discount multiplier.                 */
 const MATRIX = {
-  annualDiscount: 0.20,                       // flat 20% off (annual)
+  annualDiscount: 0.2, // flat 20% off (annual)
   currencies: {
-    USD: { symbol: "$", code: "USD", rate: 1.00,  tariff: 1.00, locale: "en-US" },
-    INR: { symbol: "₹", code: "INR", rate: 83.2,  tariff: 1.08, locale: "en-IN" }, // regional tariff
-    EUR: { symbol: "€", code: "EUR", rate: 0.92,  tariff: 0.97, locale: "de-DE" },
+    USD: { symbol: "$", code: "USD", rate: 1.0, tariff: 1.0, locale: "en-US" },
+    INR: {
+      symbol: "₹",
+      code: "INR",
+      rate: 83.2,
+      tariff: 1.08,
+      locale: "en-IN",
+    }, // regional tariff
+    EUR: {
+      symbol: "€",
+      code: "EUR",
+      rate: 0.92,
+      tariff: 0.97,
+      locale: "de-DE",
+    },
   },
   tiers: [
     { id: "starter", baseUSD: 29 },
-    { id: "growth",  baseUSD: 79 },
-    { id: "scale",   baseUSD: 199 },
+    { id: "growth", baseUSD: 79 },
+    { id: "scale", baseUSD: 199 },
   ],
 };
 
 const state = {
-  cycle: "monthly",          // "monthly" | "annual"
-  currency: "USD",           // "USD" | "INR" | "EUR"
-  activeIndex: 0,            // which feature tile/panel is active
+  cycle: "monthly", // "monthly" | "annual"
+  currency: "USD", // "USD" | "INR" | "EUR"
+  activeIndex: 0, // which feature tile/panel is active
 };
 
 /* compute the displayed monthly-equivalent price for one tier */
 function priceFor(tier, currencyCode, cycle) {
   const c = MATRIX.currencies[currencyCode];
   let monthly = tier.baseUSD * c.rate * c.tariff;
-  if (cycle === "annual") monthly *= (1 - MATRIX.annualDiscount);
+  if (cycle === "annual") monthly *= 1 - MATRIX.annualDiscount;
   return monthly;
 }
 
@@ -47,7 +59,9 @@ function priceFor(tier, currencyCode, cycle) {
 function fmt(value, currencyCode) {
   const c = MATRIX.currencies[currencyCode];
   return new Intl.NumberFormat(c.locale, {
-    style: "currency", currency: c.code, maximumFractionDigits: 0,
+    style: "currency",
+    currency: c.code,
+    maximumFractionDigits: 0,
   }).format(value);
 }
 
@@ -61,7 +75,11 @@ MATRIX.tiers.forEach((t) => {
 function renderPrices() {
   for (const t of MATRIX.tiers) {
     const el = amountEls[t.id];
-    if (el) el.textContent = fmt(priceFor(t, state.currency, state.cycle), state.currency);
+    if (el)
+      el.textContent = fmt(
+        priceFor(t, state.currency, state.cycle),
+        state.currency,
+      );
   }
 }
 
@@ -72,25 +90,29 @@ const billingSwitch = document.querySelector("[data-billing]");
 billingSwitch.addEventListener("click", () => {
   state.cycle = state.cycle === "monthly" ? "annual" : "monthly";
   billingSwitch.setAttribute("aria-checked", String(state.cycle === "annual"));
-  renderPrices();                       // <-- text nodes only
+  renderPrices(); // <-- text nodes only
 });
 
 /* -------------------------------------------------------------------------- */
 /*  Currency dropdown — custom, accessible, no library                        */
 /* -------------------------------------------------------------------------- */
-const dd       = document.querySelector("[data-dropdown]");
-const ddBtn    = dd.querySelector(".dropdown__btn");
-const ddMenu   = dd.querySelector(".dropdown__menu");
-const ddOpts   = Array.from(dd.querySelectorAll('[role="option"]'));
+const dd = document.querySelector("[data-dropdown]");
+const ddBtn = dd.querySelector(".dropdown__btn");
+const ddMenu = dd.querySelector(".dropdown__menu");
+const ddOpts = Array.from(dd.querySelectorAll('[role="option"]'));
 const curSymEl = dd.querySelector("[data-cur-symbol]");
-const curCodeEl= dd.querySelector("[data-cur-code]");
+const curCodeEl = dd.querySelector("[data-cur-code]");
 
-ddMenu.removeAttribute("hidden");       // animation is handled via .is-open in CSS
+ddMenu.removeAttribute("hidden"); // animation is handled via .is-open in CSS
 
 function openMenu(open) {
   dd.classList.toggle("is-open", open);
   ddBtn.setAttribute("aria-expanded", String(open));
-  if (open) (ddOpts.find((o) => o.getAttribute("aria-selected") === "true") || ddOpts[0]).focus();
+  if (open)
+    (
+      ddOpts.find((o) => o.getAttribute("aria-selected") === "true") ||
+      ddOpts[0]
+    ).focus();
 }
 
 function selectCurrency(code) {
@@ -98,24 +120,42 @@ function selectCurrency(code) {
   const c = MATRIX.currencies[code];
   curSymEl.textContent = c.symbol;
   curCodeEl.textContent = c.code;
-  ddOpts.forEach((o) => o.setAttribute("aria-selected", String(o.dataset.value === code)));
-  renderPrices();                       // <-- text nodes only
+  ddOpts.forEach((o) =>
+    o.setAttribute("aria-selected", String(o.dataset.value === code)),
+  );
+  renderPrices(); // <-- text nodes only
   openMenu(false);
   ddBtn.focus();
 }
 
-ddBtn.addEventListener("click", (e) => { e.stopPropagation(); openMenu(!dd.classList.contains("is-open")); });
+ddBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  openMenu(!dd.classList.contains("is-open"));
+});
 ddOpts.forEach((opt) => {
-  opt.addEventListener("click", (e) => { e.stopPropagation(); selectCurrency(opt.dataset.value); });
+  opt.addEventListener("click", (e) => {
+    e.stopPropagation();
+    selectCurrency(opt.dataset.value);
+  });
 });
 
 /* keyboard: arrows to move, Enter to pick, Esc to close */
 dd.addEventListener("keydown", (e) => {
   const i = ddOpts.indexOf(document.activeElement);
-  if (e.key === "Escape") { openMenu(false); ddBtn.focus(); }
-  else if (e.key === "ArrowDown") { e.preventDefault(); if (!dd.classList.contains("is-open")) openMenu(true); else ddOpts[Math.min(i + 1, ddOpts.length - 1)].focus(); }
-  else if (e.key === "ArrowUp")   { e.preventDefault(); ddOpts[Math.max(i - 1, 0)].focus(); }
-  else if ((e.key === "Enter" || e.key === " ") && i > -1) { e.preventDefault(); selectCurrency(ddOpts[i].dataset.value); }
+  if (e.key === "Escape") {
+    openMenu(false);
+    ddBtn.focus();
+  } else if (e.key === "ArrowDown") {
+    e.preventDefault();
+    if (!dd.classList.contains("is-open")) openMenu(true);
+    else ddOpts[Math.min(i + 1, ddOpts.length - 1)].focus();
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    ddOpts[Math.max(i - 1, 0)].focus();
+  } else if ((e.key === "Enter" || e.key === " ") && i > -1) {
+    e.preventDefault();
+    selectCurrency(ddOpts[i].dataset.value);
+  }
 });
 
 /* click outside closes the menu */
@@ -133,16 +173,21 @@ const STORE_KEY = "helix.activeIndex";
 /* restore last active panel (state persistence) */
 try {
   const saved = parseInt(localStorage.getItem(STORE_KEY), 10);
-  if (!Number.isNaN(saved) && saved >= 0 && saved < features.length) state.activeIndex = saved;
+  if (!Number.isNaN(saved) && saved >= 0 && saved < features.length)
+    state.activeIndex = saved;
 } catch (_) {}
 
 function persist() {
-  try { localStorage.setItem(STORE_KEY, String(state.activeIndex)); } catch (_) {}
+  try {
+    localStorage.setItem(STORE_KEY, String(state.activeIndex));
+  } catch (_) {}
 }
 
 function setOpen(feature, open) {
   feature.classList.toggle("is-open", open);
-  feature.querySelector(".feature__head").setAttribute("aria-expanded", String(open));
+  feature
+    .querySelector(".feature__head")
+    .setAttribute("aria-expanded", String(open));
 }
 
 /* desktop: mark the hovered/focused tile as active (this is what gets handed
@@ -174,15 +219,24 @@ features.forEach((f, i) => {
   const head = f.querySelector(".feature__head");
 
   // desktop hover/focus → set active
-  f.addEventListener("mouseenter", () => { if (!mq.matches) setActive(i); });
-  head.addEventListener("focus", () => { if (!mq.matches) setActive(i); });
+  f.addEventListener("mouseenter", () => {
+    if (!mq.matches) setActive(i);
+  });
+  head.addEventListener("focus", () => {
+    if (!mq.matches) setActive(i);
+  });
 
   // mobile tap → single-open accordion + remember choice
   head.addEventListener("click", () => {
-    if (!mq.matches) return;                 // desktop: head is not a toggle
+    if (!mq.matches) return; // desktop: head is not a toggle
     const willOpen = !f.classList.contains("is-open");
-    features.forEach((other, idx) => setOpen(other, idx === i ? willOpen : false));
-    if (willOpen) { state.activeIndex = i; persist(); }
+    features.forEach((other, idx) =>
+      setOpen(other, idx === i ? willOpen : false),
+    );
+    if (willOpen) {
+      state.activeIndex = i;
+      persist();
+    }
   });
 });
 
@@ -196,11 +250,15 @@ const navToggle = document.querySelector("[data-nav-toggle]");
 const mobileMenu = document.querySelector("[data-mobile-menu]");
 navToggle.addEventListener("click", () => {
   const open = mobileMenu.hasAttribute("hidden");
-  if (open) mobileMenu.removeAttribute("hidden"); else mobileMenu.setAttribute("hidden", "");
+  if (open) mobileMenu.removeAttribute("hidden");
+  else mobileMenu.setAttribute("hidden", "");
   navToggle.setAttribute("aria-expanded", String(open));
 });
 mobileMenu.querySelectorAll("a").forEach((a) =>
-  a.addEventListener("click", () => { mobileMenu.setAttribute("hidden", ""); navToggle.setAttribute("aria-expanded", "false"); })
+  a.addEventListener("click", () => {
+    mobileMenu.setAttribute("hidden", "");
+    navToggle.setAttribute("aria-expanded", "false");
+  }),
 );
 
 /* -------------------------------------------------------------------------- */
@@ -209,9 +267,9 @@ mobileMenu.querySelectorAll("a").forEach((a) =>
 renderPrices();
 applyLayout(mq.matches);
 
-requestAnimationFrame(() => document.body.classList.add("ready"));   // start entrance
+requestAnimationFrame(() => document.body.classList.add("ready")); // start entrance
 const loader = document.getElementById("loader");
 setTimeout(() => {
-  loader.classList.add("is-done");                                   // fade at ~250ms
-  setTimeout(() => loader.remove(), 240);                            // gone by ~490ms
+  loader.classList.add("is-done"); // fade at ~250ms
+  setTimeout(() => loader.remove(), 240); // gone by ~490ms
 }, 250);

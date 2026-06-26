@@ -4,8 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ============================ SEO HYGIENE & METADATA (10 pts) ============================ -->
-  <!-- TODO: replace example.com with your real live deployment URL before submitting -->
+  <!-- SEO HYGIENE & METADATA -->
   <title>Helix — AI Data Automation Platform | Self-Running Pipelines</title>
   <meta name="description" content="Helix turns raw data pipelines into self-running workflows. Connect any source, transform with AI, and ship governed automations in minutes." />
   <meta name="keywords" content="ai data automation, data pipelines, etl, workflow automation, saas" />
@@ -30,10 +29,8 @@
   <meta name="twitter:description" content="Self-running data pipelines, powered by AI." />
   <meta name="twitter:image" content="https://ai-platform-landing-sable.vercel.app/assets/og-image.png" />
 
-  <!-- Favicon (inline so there is zero external request) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%236d5efc'/></svg>" />
 
-  <!-- Structured data: helps crawlers understand the product (bonus crawlability) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -46,7 +43,7 @@
   }
   </script>
 
-  <!-- Fonts (required by brief): JetBrains Mono for headers, Inter for body — via Google Fonts head layer -->
+  <!-- Fonts: JetBrains Mono (headers) + Inter (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" />
@@ -55,9 +52,7 @@
 </head>
 
 <body>
-  <!-- ============================ LOADING SEQUENCE (5 pts) ============================ -->
-  <!-- Pure visual overlay. Real content lives in the DOM underneath from first paint,
-       so it never blocks crawling or Time-to-Interactive. JS removes it within 500ms. -->
+  <!-- LOADING SEQUENCE (overlay only; content is in the DOM from first paint) -->
   <div id="loader" aria-hidden="true">
     <div class="loader__mark">
       <svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true">
@@ -66,12 +61,11 @@
     </div>
   </div>
 
-  <!-- ============================ HEADER (semantic landmark) ============================ -->
+  <!-- HEADER -->
   <header class="site-header" data-enter="1">
     <div class="container site-header__row">
       <a class="brand" href="#top" aria-label="Helix home">
         <svg class="brand__logo" viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
-          <!-- TODO: swap with brand SVG from asset package -->
           <path d="M6 4c8 4 8 16 0 20M22 4c-8 4-8 16 0 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
           <circle cx="14" cy="14" r="3" fill="currentColor"/>
         </svg>
@@ -93,7 +87,6 @@
         <span></span><span></span><span></span>
       </button>
     </div>
-    <!-- mobile menu -->
     <nav class="mobile-menu" data-mobile-menu aria-label="Mobile" hidden>
       <a href="#features">Features</a>
       <a href="#pricing">Pricing</a>
@@ -103,7 +96,7 @@
   </header>
 
   <main id="top">
-    <!-- ============================ HERO ============================ -->
+    <!-- HERO -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero__bg" aria-hidden="true"></div>
       <div class="container hero__inner">
@@ -127,10 +120,7 @@
       </div>
     </section>
 
-    <!-- ============================ FEATURE 2: BENTO ↔ ACCORDION (10 pts) ============================ -->
-    <!-- Same DOM for both layouts. CSS turns it into a bento grid on desktop and an
-         accordion on mobile. JS tracks the active index and transfers it across the
-         breakpoint (the Context Lock). No UI/animation libraries — all hand-written. -->
+    <!-- FEATURE 2: BENTO ↔ ACCORDION -->
     <section id="features" class="features" aria-labelledby="features-title">
       <div class="container">
         <header class="section-head">
@@ -140,7 +130,6 @@
         </header>
 
         <div class="bento" data-bento>
-          <!-- Each .feature is a tile (desktop) and an accordion item (mobile). -->
           <article class="feature feature--lg" data-index="0">
             <button class="feature__head" aria-expanded="true" aria-controls="panel-0">
               <span class="feature__icon">
@@ -214,7 +203,7 @@
               <span class="feature__icon">
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
-              <span class="feature__title">Governance & access</span>
+              <span class="feature__title">Governance &amp; access</span>
               <span class="feature__chevron" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
@@ -231,7 +220,7 @@
               <span class="feature__icon">
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
-              <span class="feature__title">One-click deploy & observability</span>
+              <span class="feature__title">One-click deploy &amp; observability</span>
               <span class="feature__chevron" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
@@ -246,10 +235,7 @@
       </div>
     </section>
 
-    <!-- ============================ FEATURE 1: PRICING MATRIX (15 + 15 pts) ============================ -->
-    <!-- Prices are computed in main.js from a multi-dimensional matrix (base rate ×
-         currency rate × regional tariff, with a 20% annual discount). Nothing is
-         hardcoded in the markup. The switchers update ONLY the amount text nodes. -->
+    <!-- FEATURE 1: PRICING MATRIX -->
     <section id="pricing" class="pricing" aria-labelledby="pricing-title">
       <div class="container">
         <header class="section-head">
@@ -258,7 +244,6 @@
           <p class="section-sub">Switch billing and currency below. Prices recompute instantly from the live matrix.</p>
         </header>
 
-        <!-- Controls. Their state changes never touch the cards' layout. -->
         <div class="pricing__controls">
           <div class="billing" role="group" aria-label="Billing cycle">
             <span class="billing__label" data-billing-monthly>Monthly</span>
@@ -270,7 +255,6 @@
             </span>
           </div>
 
-          <!-- Custom currency dropdown (built from scratch — no UI library) -->
           <div class="dropdown" data-dropdown>
             <button class="dropdown__btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Select currency">
               <span class="dropdown__cur" data-cur-symbol>$</span>
@@ -285,7 +269,6 @@
           </div>
         </div>
 
-        <!-- Card shells are semantic + crawlable. Only the [data-amount] node is dynamic. -->
         <div class="tiers">
           <article class="tier" data-tier="starter">
             <h3 class="tier__name">Starter</h3>
@@ -338,7 +321,7 @@
       </div>
     </section>
 
-    <!-- ============================ SOCIAL PROOF ============================ -->
+    <!-- SOCIAL PROOF -->
     <section id="proof" class="proof" aria-labelledby="proof-title">
       <div class="container">
         <header class="section-head">
@@ -371,7 +354,7 @@
     </section>
   </main>
 
-  <!-- ============================ FOOTER ============================ -->
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container site-footer__grid">
       <div class="site-footer__brand">
