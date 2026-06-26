@@ -273,3 +273,23 @@ setTimeout(() => {
   loader.classList.add("is-done"); // fade at ~250ms
   setTimeout(() => loader.remove(), 240); // gone by ~490ms
 }, 250);
+
+// 3D Tilt effect for Bento cards on desktop
+features.forEach((f) => {
+  f.addEventListener("mousemove", (e) => {
+    if (mq.matches) return; // Only on desktop
+    const rect = f.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const rotateY = ((x / rect.width) - 0.5) * 10; // Max 5deg tilt
+    const rotateX = ((y / rect.height) - 0.5) * -10;
+    
+    f.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+  });
+
+  f.addEventListener("mouseleave", () => {
+    if (mq.matches) return;
+    f.style.transform = ''; // Reset to CSS default
+  });
+});
