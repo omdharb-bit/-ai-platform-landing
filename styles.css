@@ -145,6 +145,42 @@ body.ready [data-enter="3"] { animation-delay: 160ms; }
 .hero__stats { display: flex; flex-wrap: wrap; gap: clamp(24px, 5vw, 56px); margin-top: 52px; }
 .hero__stats dt { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; }
 .hero__stats dd { color: var(--muted); font-size: var(--fs-small); }
+/* --- NEW: Hero Visual Layout & 3D Dashboard --- */
+.hero__inner { 
+  position: relative; z-index: 1; 
+  display: flex; 
+  flex-direction: row; 
+  gap: 60px; 
+  align-items: center; 
+  max-width: 1180px; /* Expand to full container width */
+}
+.hero__copy { flex: 1.2; max-width: 620px; }
+
+.hero__visual { 
+  flex: 0.8; 
+  max-width: 540px; 
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+}
+
+.dashboard-3d {
+  width: 100%;
+  transform: rotateY(-15deg) rotateX(8deg);
+  transform-style: preserve-3d;
+  filter: drop-shadow(0px 30px 60px rgba(0,0,0,0.6)) drop-shadow(20px 0px 40px rgba(109, 94, 252, 0.15));
+  animation: dashboard-float 8s ease-in-out infinite;
+}
+
+@keyframes dashboard-float {
+  0%, 100% { transform: rotateY(-15deg) rotateX(8deg) translateZ(0); }
+  50% { transform: rotateY(-12deg) rotateX(5deg) translateZ(30px); }
+}
+
+@media (max-width: 900px) {
+  .hero__inner { flex-direction: column; gap: 40px; }
+  .hero__copy { max-width: 820px; }
+  .hero__visual { display: none; } /* Hide on mobile to keep DOM light */
+}
 
 /* ------------------------------ SECTION HEADS ----------------------------- */
 .section-head { max-width: 640px; margin-bottom: clamp(32px, 5vw, 52px); }
