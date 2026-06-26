@@ -97,7 +97,9 @@
 
   <main id="top">
     <!-- HERO -->
-          <div class="container hero__inner">
+    <section class="hero" aria-label="Hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container hero__inner">
         <div class="hero__copy">
           <p class="eyebrow" data-enter="1">Data automation, on autopilot</p>
           <h1 id="hero-title" class="hero__title" data-enter="2">
@@ -187,6 +189,7 @@
             </svg>
           </div>
         </div>
+      </div>
     </section>
 
     <!-- FEATURE 2: BENTO ↔ ACCORDION -->
@@ -200,7 +203,7 @@
 
         <div class="bento" data-bento>
           <article class="feature feature--lg" data-index="0">
-            <button class="feature__head" aria-expanded="true" aria-controls="panel-0">
+            <button class="feature__head" aria-expanded="false" aria-controls="panel-0">
               <span class="feature__icon">
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 6h6v6H4zM14 6h6v12h-6zM4 16h6v2H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
               </span>
@@ -217,7 +220,7 @@
           </article>
 
           <article class="feature" data-index="1">
-            <button class="feature__head" aria-expanded="true" aria-controls="panel-1">
+            <button class="feature__head" aria-expanded="false" aria-controls="panel-1">
               <span class="feature__icon">
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 8a8 8 0 0114-5M20 16a8 8 0 01-14 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18 3v5h-5M6 21v-5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
@@ -234,7 +237,7 @@
           </article>
 
           <article class="feature" data-index="2">
-            <button class="feature__head" aria-expanded="true" aria-controls="panel-2">
+            <button class="feature__head" aria-expanded="false" aria-controls="panel-2">
               <span class="feature__icon">
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3l2.2 4.8L19 10l-4.8 2.2L12 17l-2.2-4.8L5 10l4.8-2.2z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
               </span>
@@ -251,7 +254,7 @@
           </article>
 
           <article class="feature" data-index="3">
-            <button class="feature__head" aria-expanded="true" aria-controls="panel-3">
+            <button class="feature__head" aria-expanded="false" aria-controls="panel-3">
               <span class="feature__icon">
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 16l5-6 4 4 5-7 4 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
@@ -268,7 +271,7 @@
           </article>
 
           <article class="feature" data-index="4">
-            <button class="feature__head" aria-expanded="true" aria-controls="panel-4">
+            <button class="feature__head" aria-expanded="false" aria-controls="panel-4">
               <span class="feature__icon">
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
@@ -285,7 +288,7 @@
           </article>
 
           <article class="feature feature--wide" data-index="5">
-            <button class="feature__head" aria-expanded="true" aria-controls="panel-5">
+            <button class="feature__head" aria-expanded="false" aria-controls="panel-5">
               <span class="feature__icon">
                 <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
