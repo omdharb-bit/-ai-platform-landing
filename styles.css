@@ -134,6 +134,7 @@ body.ready [data-enter="3"] { animation-delay: 160ms; }
     radial-gradient(40% 50% at 25% 30%, color-mix(in srgb, var(--brand) 55%, transparent), transparent 70%),
     radial-gradient(38% 45% at 78% 25%, color-mix(in srgb, var(--brand-2) 42%, transparent), transparent 70%);
   filter: blur(60px); opacity: 0.55;
+  transition: transform 600ms var(--ease-out); /* Smooth trailing effect */
   animation: drift 14s var(--ease-io) infinite alternate;
 }
 @keyframes drift { to { transform: translate3d(0, 26px, 0) scale(1.06); } }
@@ -157,6 +158,8 @@ body.ready [data-enter="3"] { animation-delay: 160ms; }
   position: relative; grid-column: span 1;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
   overflow: hidden;
+  transform-style: preserve-3d; /* Enables 3D space for children */
+  will-change: transform; /* GPU acceleration hint */
   transition: transform var(--t-micro) var(--ease-out),
               border-color var(--t-micro) var(--ease-out),
               box-shadow var(--t-micro) var(--ease-out);

@@ -293,3 +293,44 @@ features.forEach((f) => {
     f.style.transform = ''; // Reset to CSS default
   });
 });
+/* -------------------------------------------------------------------------- */
+/*  3D INTERACTIONS — Bento Tilt & Hero Parallax (Zero dependencies)          */
+/* -------------------------------------------------------------------------- */
+const heroBg = document.querySelector('.hero__bg');
+
+// 1. Hero Background Parallax (subtle mouse tracking)
+if (heroBg) {
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth) - 0.5;
+    const y = (e.clientY / window.innerHeight) - 0.5;
+    // Move the background slightly opposite to the mouse for depth
+    heroBg.style.transform = `translate3d(${x * -40}px, ${y * -40}px, 0) scale(1.1)`;
+  });
+}
+
+// 2. Bento 3D Tilt Effect (Desktop only)
+features.forEach((f) => {
+  // Skip if on mobile, we don't want 3D tilt on touch devices
+  if (mq.matches) return;
+
+  f.addEventListener('mousemove', (e) => {
+    if (mq.matches) return; 
+    const rect = f.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Calculate rotation (max ~8deg tilt)
+    const rotateY = ((x / rect.width) - 0.5) * 8;
+    const rotateX = ((y / rect.height) - 0.5) * -8;
+    
+    // Apply 3D transform, preserving the active state's Y translation
+    const isActive = f.classList.contains('is-active');
+    const activeY = isActive ? '-3px' : '0px';
+    f.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(${activeY})`;
+  });
+
+  f.addEventListener('mouseleave', () => {
+    if (mq.matches) return;
+    f.style.transform = ''; // Reset to CSS default state
+  });
+});
