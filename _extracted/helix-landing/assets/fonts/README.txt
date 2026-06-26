@@ -1,5 +1,3 @@
-# -ai-platform-landing
-Next-Gen AI Platform Speed Run - Hackathon Submission
 Drop the two required font files from asset_package.zip here:
   display.woff2  -> the display/heading family
   body.woff2     -> the body/text family
