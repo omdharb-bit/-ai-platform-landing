@@ -298,15 +298,6 @@ features.forEach((f) => {
 /* -------------------------------------------------------------------------- */
 const heroBg = document.querySelector('.hero__bg');
 
-// 1. Hero Background Parallax (subtle mouse tracking)
-if (heroBg) {
-  document.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth) - 0.5;
-    const y = (e.clientY / window.innerHeight) - 0.5;
-    // Move the background slightly opposite to the mouse for depth
-    heroBg.style.transform = `translate3d(${x * -40}px, ${y * -40}px, 0) scale(1.1)`;
-  });
-}
 
 // 2. Bento 3D Tilt Effect (Desktop only)
 features.forEach((f) => {
